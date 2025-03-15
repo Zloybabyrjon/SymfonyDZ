@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello UserController!{% endblock %}
+
+{% block body %}
+<form method="POST" action={{ path('create_user')}}>
+    <input name="last_name" class ="last_name" type="text">
+    <input name="first_name" class ="first_name" type="text">
+    <input name="age" class ="age" type="text">
+    <input name="status" class ="status" type="text">
+    <input name="email" class ="email" type="text">
+    <input name="telegram" class ="telegram" type="text">
+    <input name="address" class ="address" type="text">
+    <input type="submit">
+</form>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello UserController!{% endblock %}
+
+{% block body %}
+<form method="POST" action={{ path('update_user', {user: user.id})}}>
+<input type="hidden" name="_method" value="PUT">
+    <input name="first_name" type="text" value="{{user.firstname}}">
+    <input name="last_name" type="text" value="{{user.lastname}}">
+    <input name="age" type="number" value="{{user.age}}">
+    <input name="status" type="text" value="{{user.status}}">
+    <input name="email" type="text" value="{{user.email}}">
+    <input name="telegram" type="text" value="{{user.telegram}}">
+    <input name="adress" type="text" value="{{user.address}}">
+    <input type="submit">
+</form>
+{% endblock %} 

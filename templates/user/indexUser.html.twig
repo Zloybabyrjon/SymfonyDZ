@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello UserController!{% endblock %}
+
+{% block body %}
+<table>
+<thead>
+<tr><th>Фамилия</th><th>Имя</th><th>Возраст</th><th>Статус</th><th>Почта</th><th>Телеграмм</th><th>Адрес</th></tr>
+</thead>
+<tbody>
+{% for user in users %}
+<thead>
+<tr>
+<td>{{user.lastName}}</td>
+<td>{{user.firstName}}</td>
+<td>{{user.age}}</td>
+<td>{{user.status}}</td>
+<td>{{user.email}}</td>
+<td>{{user.telegram}}</td>
+<td>{{user.address}}</td> 
+ <td><a href="{{ path('edit_user', {user: user.id})}}">Изменить</a></td>
+ <td>
+    <form method="POST" action="{{ path('delete_user', {'user': user.id}) }}">
+        <input type="hidden" name="_method" value="DELETE">
+        <button>Удалить</button>
+    </form>
+    </td>
+   
+</thead>
+</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+<td>
+    <form method="GET" action="{{ path('app_user') }}">
+    <input type="text" placeholder="Поиск" name="search">
+    <input type="submit">
+</form>
+</td>
+{% endblock %}
