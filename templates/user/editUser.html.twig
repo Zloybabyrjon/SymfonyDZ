@@ -12,6 +12,12 @@
     <input name="email" type="text" value="{{user.email}}">
     <input name="telegram" type="text" value="{{user.telegram}}">
     <input name="adress" type="text" value="{{user.address}}">
+    <select name="department">
+        <option value="0">All</option>
+        {% for i in department %}
+            <option value="{{ i.id }}">{{ i.name }}</option>
+        {% endfor %}
+    </select>
     <input type="submit">
 </form>
 {% endblock %} 

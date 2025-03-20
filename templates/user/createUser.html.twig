@@ -11,6 +11,12 @@
     <input name="email" class ="email" type="text">
     <input name="telegram" class ="telegram" type="text">
     <input name="address" class ="address" type="text">
+    <select name="department">
+        <option value="0">All</option>
+        {% for i in department %}
+            <option value="{{ i.id }}">{{ i.name }}</option>
+        {% endfor %}
+    </select>
     <input type="submit">
 </form>
 {% endblock %}

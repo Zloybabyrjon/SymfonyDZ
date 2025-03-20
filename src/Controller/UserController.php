@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Repository\DepartmentRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -15,13 +16,29 @@ use Symfony\Component\Routing\Attribute\Route;
 final class UserController extends AbstractController
 {
     #[Route('/user', name: 'app_user', methods: ['GET'])]
-    public function index(UserRepository $userRepository, Request $request, EntityManagerInterface $em): Response
+    public function index(DepartmentRepository $departmentRepository, UserRepository $userRepository,  Request $request, EntityManagerInterface $em): Response
     {
-        $qb = $userRepository->createQueryBuilder('u');
-        $qb->andWhere('u.last_name LIKE :search OR u.email LIKE :search')
-            ->setParameter('search', ''.$request->query->get('search').'%');
-        $users = $qb->getQuery()->getResult();
-        return $this->render('/user/indexUser.html.twig', ['users' => $users]);
+        
+        $userQb = $userRepository->createQueryBuilder('user');
+
+        $departmentValue = $request->query->get('department');
+
+        $userQb->setParameter('search', ''.$request->query->get('search').'%');
+
+        if($departmentValue != 0){
+            $userQb->where('user.last_name LIKE :search  AND user.department = :search2 OR user.email LIKE :search AND user.department = :search2')->setParameter('search2', ''.$departmentValue);
+        }
+        else{
+            $userQb->where('user.last_name LIKE :search OR user.email LIKE :search');
+        } 
+        $users = $userQb->getQuery()->getResult();
+
+        
+        $departmentQb = $departmentRepository->createQueryBuilder('d');
+        $department = $departmentQb->getQuery()->getResult();
+
+        
+        return $this->render('/user/index.html.twig', ['users' => $users, 'department'=> $department]);
     }
 
     #[Route('/user', name: "create_user", methods: ['POST'])]
@@ -42,9 +59,11 @@ final class UserController extends AbstractController
     }
 
     #[Route('/user/create')]
-    public function formCreate(): Response
+    public function formCreate(DepartmentRepository $departmentRepository, Request $request): Response
     {
-        return $this->render('user/createUser.html.twig');
+        $qb = $departmentRepository->createQueryBuilder('u');
+        $department = $qb->getQuery()->getResult();
+        return $this->render('user/createUser.html.twig', ['department' => $department]);
     }
     #[Route('/user/{user}', name: 'delete_user', methods: ["DELETE"])]
     public function delete(User $user, EntityManagerInterface $em): Response
