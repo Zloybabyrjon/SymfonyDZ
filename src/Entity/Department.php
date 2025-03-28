@@ -47,45 +47,33 @@ class Department
         return $this;
     }
 
-    // public function getUser(): ?User
-    // {
-    //     return $this->user;
-    // }
+     /**
+      * @return Collection<int, User>
+      */
+     public function getUsers(): Collection
+     {
+         return $this->users;
+     }
 
-    // public function setUser(?User $user): static
-    // {
-    //     $this->user = $user;
+     public function addUser(User $user): static
+     {
+         if (!$this->users->contains($user)) {
+             $this->users->add($user);
+             $user->setDepartment($this);
+         }
 
-    //     return $this;
-    // }
+         return $this;
+     }
 
-    // /**
-    //  * @return Collection<int, User>
-    //  */
-    // public function getUsers(): Collection
-    // {
-    //     return $this->users;
-    // }
+     public function removeUser(User $user): static
+     {
+         if ($this->users->removeElement($user)) {
+             // set the owning side to null (unless already changed)
+             if ($user->getDepartment() === $this) {
+                 $user->setDepartment(null);
+             }
+         }
 
-    // public function addUser(User $user): static
-    // {
-    //     if (!$this->users->contains($user)) {
-    //         $this->users->add($user);
-    //         $user->setDepartment($this);
-    //     }
-
-    //     return $this;
-    // }
-
-    // public function removeUser(User $user): static
-    // {
-    //     if ($this->users->removeElement($user)) {
-    //         // set the owning side to null (unless already changed)
-    //         if ($user->getDepartment() === $this) {
-    //             $user->setDepartment(null);
-    //         }
-    //     }
-
-    //     return $this;
-    // }
+         return $this;
+     }
 }

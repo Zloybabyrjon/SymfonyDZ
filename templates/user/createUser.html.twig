@@ -3,7 +3,7 @@
 {% block title %}Hello UserController!{% endblock %}
 
 {% block body %}
-<form method="POST" action={{ path('create_user')}}>
+ <form method="POST" action="{{ path('create_user') }}" enctype="multipart/form-data">
     <input name="last_name" class ="last_name" type="text">
     <input name="first_name" class ="first_name" type="text">
     <input name="age" class ="age" type="text">
@@ -12,11 +12,11 @@
     <input name="telegram" class ="telegram" type="text">
     <input name="address" class ="address" type="text">
     <select name="department">
-        <option value="0">All</option>
         {% for i in department %}
             <option value="{{ i.id }}">{{ i.name }}</option>
         {% endfor %}
     </select>
-    <input type="submit">
+        <input name="image" class ="image" type="file" accept="image/png, image/jpg"> 
+        <input type="submit">
 </form>
 {% endblock %}
