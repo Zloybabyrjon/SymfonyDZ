@@ -51,7 +51,6 @@ class User
     private ?Department $department = null;
 
     #[ORM\Column(length: 255, nullable: false)]
-    #[Assert\Image]
     private ?string $image;
 
    
