@@ -31,7 +31,7 @@ class CreateUserCommand extends Command
         }
 
         $sql = "INSERT INTO User (first_name, last_name, age, status, email, telegram, address, department_id, image)
-                VALUES ('drj', 'tdjs', '54', 'hRSh', 'zfdn', 'zdfnz', 'zfdnzd', '1', '/public/image/Blue.png')";
+                VALUES ('Иванов', 'Иван', '54', 'в активном поиске', 'IvanovIvan345@gmail.com', '@Ivan453', 'Ленина 33', '1', '/public/image/Blue.png')";
 
         if ($connect->query($sql)) {
             $output->writeln("Данные успешно добавлены");
